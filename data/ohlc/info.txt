@@ -1,0 +1,1 @@
+This directory contains the OHLC data that we use for testing our software.

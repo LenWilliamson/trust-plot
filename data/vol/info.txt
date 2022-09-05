@@ -1,0 +1,6 @@
+We follow the following convention for the .csv file
+
+px,qx           <- header looks like this
+42000.00,150.0  <- floating point numbers
+42100.00,300.0
+42200.00,100.0
