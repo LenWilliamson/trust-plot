@@ -31,14 +31,15 @@ def plot(volume_prev_cw: str, ohlc_prev_cw: str, ohlc_current_cw) -> None:
     df_ohlc: pd.DataFrame = pd.concat(
         [df_ohlc_prev, df_ohlc_current], axis=0, ignore_index=True)
 
+    df_ohlc = df_ohlc_prev
+
     # Load Volume profile into DataFrame
     df_vol: pd.DataFrame = pd.read_csv(
         file_path_volume_prev_cw, sep=',', names=dc.VOL_CNL, header=0)
 
-    # Transform open timestamp from milliseconds to human readable datetime format "%Y-%M-%D %H-%M-%S"
+    # Transform open timestamp from milliseconds to human readable datetime format "%Y-%m-%d %H-%M-%S"
     df_ohlc[dc.OHLC_CN['openTime']] = df_ohlc[dc.OHLC_CN['openTime']].map(
         partial(time_converter))
-    print(df_ohlc)
 
     # Generate plot: OHLC with volume profile
     fig = go.Figure(
@@ -55,8 +56,8 @@ def plot(volume_prev_cw: str, ohlc_prev_cw: str, ohlc_current_cw) -> None:
             ),
             go.Bar(
                 base=0,
-                x=df_vol[dc.VOLP_CN['price']],
-                y=df_vol[dc.VOLP_CN['quantity']],
+                x=df_vol[dc.VOLP_CN['quantity']],
+                y=df_vol[dc.VOLP_CN['price']],
                 orientation='h',
                 xaxis='x2',
                 yaxis='y2',
@@ -81,6 +82,7 @@ def plot(volume_prev_cw: str, ohlc_prev_cw: str, ohlc_current_cw) -> None:
             ),
             xaxis2=go.layout.XAxis(
                 side='top',
+                title='Volume',
                 rangeslider=go.layout.xaxis.Rangeslider(visible=False),
                 showticklabels=True
             ),
@@ -107,7 +109,8 @@ def plot(volume_prev_cw: str, ohlc_prev_cw: str, ohlc_current_cw) -> None:
             )
         ],
         layout=go.Layout(
-            title=go.layout.Title(text=f'BTC-USDT OHLC file in calendar week [{ohlc_prev_cw} | {ohlc_current_cw}]')
+            title=go.layout.Title(
+                text=f'BTC-USDT OHLC file in calendar week [{ohlc_prev_cw} | {ohlc_current_cw}]')
         )
     )
 
@@ -125,7 +128,17 @@ def plot(volume_prev_cw: str, ohlc_prev_cw: str, ohlc_current_cw) -> None:
             )
         ],
         layout=go.Layout(
-            title=go.layout.Title(text='Volume')
+            title=go.layout.Title(text='y = Volume'),
+            xaxis=go.layout.XAxis(
+                side='bottom',
+                title='Price',
+                showticklabels=True,
+            ),
+            yaxis=go.layout.YAxis(
+                side='left',
+                title='Volume',
+                showticklabels=True,
+            ),
         )
     )
 
@@ -133,8 +146,8 @@ def plot(volume_prev_cw: str, ohlc_prev_cw: str, ohlc_current_cw) -> None:
         data=[
             go.Bar(
                 base=0,
-                x=df_vol[dc.VOLP_CN['price']],
-                y=df_vol[dc.VOLP_CN['quantity']],
+                x=df_vol[dc.VOLP_CN['quantity']],
+                y=df_vol[dc.VOLP_CN['price']],
                 orientation='h',
                 xaxis='x',
                 yaxis='y',
@@ -142,22 +155,36 @@ def plot(volume_prev_cw: str, ohlc_prev_cw: str, ohlc_current_cw) -> None:
                 marker=go.bar.Marker(color='#ff0000')
             )
         ],
+        layout=go.Layout(
+            title=go.layout.Title(text='Volume'),
+            xaxis=go.layout.XAxis(
+                side='bottom',
+                title='Volume',
+                showticklabels=True,
+            ),
+            yaxis=go.layout.YAxis(
+                side='left',
+                title='Price',
+                showticklabels=True,
+            ),
+        )
     )
 
-    # fig.show()
-    fig_ohlc.show()
+    fig.show()
+    # fig_ohlc.show()
     # fig_volume.show()
-    fig_volume_h.show()
+    # fig_volume_h.show()
 
 
 def main() -> int:
     # BEGIN: To configure the plot change the following lines
-    volume_prev_cw: str = "9.csv" 
+    volume_prev_cw: str = "9.csv"
     ohlc_prev_cw: str = "9.csv"
     ohlc_current_cw: str = "10.csv"
     # END: To configure the plot change the following lines
 
-    plot(volume_prev_cw=volume_prev_cw, ohlc_prev_cw=ohlc_prev_cw, ohlc_current_cw=ohlc_current_cw)
+    plot(volume_prev_cw=volume_prev_cw, ohlc_prev_cw=ohlc_prev_cw,
+         ohlc_current_cw=ohlc_current_cw)
     return 0
 
 
