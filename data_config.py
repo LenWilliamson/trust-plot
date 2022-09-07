@@ -12,7 +12,7 @@ VOLP_DP: Final[str] = os.path.join(CWD, 'data', 'vol')
 
 # Column names. These list should only be used for initialization of data frames. Use the corresponding dicts
 OHLC_CNL: Final[List[str]] = ['ots', 'open', 'high', 'low',
-                              'close', 'vol', 'cts', 'qav', 'not', 'tbbav', 'tbqav', 'ignore', 'cw']
+                              'close', 'vol', 'cts', 'qav', 'not', 'tbbav', 'tbqav', 'ignore', 'cw', 'in_interval']
 AGTR_CNL: Final[List[str]] = ['atid', 'px',
                               'qx', 'ftid', 'ltid', 'ts', 'bm', 'btpm']
 VOL_CNL: Final[list[str]] = ['px', 'qx']
@@ -32,6 +32,7 @@ OHLC_CN: Final[Dict[str, str]] = {
     'takerBuyQuoteAssetVol': 'tbqav',
     'ignore': 'ignore',
     'calendarWeek': 'cw',
+    'inInterval': 'in_interval',
 }
 AGTR_CN: Final[Dict[str, str]] = {
     'aggTradeId': 'atid',

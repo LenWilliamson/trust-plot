@@ -31,7 +31,7 @@ def plot(volume_prev_cw: str, ohlc_prev_cw: str, ohlc_current_cw) -> None:
     df_ohlc: pd.DataFrame = pd.concat(
         [df_ohlc_prev, df_ohlc_current], axis=0, ignore_index=True)
 
-    df_ohlc = df_ohlc_prev
+    # df_ohlc = df_ohlc_current
 
     # Load Volume profile into DataFrame
     df_vol: pd.DataFrame = pd.read_csv(
@@ -179,10 +179,12 @@ def plot(volume_prev_cw: str, ohlc_prev_cw: str, ohlc_current_cw) -> None:
 def main() -> int:
     # BEGIN: To configure the plot change the following lines
     # NOTE: Winter time => UTC+1 (end of October to end of March) | Summer time => UTC+2 | https://currentmillis.com/
-    volume_prev_cw: str = "9.csv"
-    ohlc_prev_cw: str = "9.csv"
-    ohlc_current_cw: str = "10.csv"
+    calendar_week: int = 9
     # END: To configure the plot change the following lines
+
+    volume_prev_cw: str = f'{calendar_week - 1}.csv'
+    ohlc_prev_cw: str = f'{calendar_week - 1}.csv'
+    ohlc_current_cw: str = f'{calendar_week }.csv'
 
     plot(volume_prev_cw=volume_prev_cw, ohlc_prev_cw=ohlc_prev_cw,
          ohlc_current_cw=ohlc_current_cw)
