@@ -178,6 +178,7 @@ def plot(volume_prev_cw: str, ohlc_prev_cw: str, ohlc_current_cw) -> None:
 
 def main() -> int:
     # BEGIN: To configure the plot change the following lines
+    # NOTE: Winter time => UTC+1 (end of October to end of March) | Summer time => UTC+2 | https://currentmillis.com/
     volume_prev_cw: str = "9.csv"
     ohlc_prev_cw: str = "9.csv"
     ohlc_current_cw: str = "10.csv"
